@@ -3,20 +3,23 @@ import { Button, TextField, Switch, FormControlLabel } from "@material-ui/core";
 
 function FormularioCadastro(){
 
-    const [nome, setNome] = useState("Ricardo");
-
+    const [nome, setNome] = useState("");
+    const [sobrenome, setSobrenome] = useState("");
+    const [cpf, setCpf] = useState("");
+    
     return(
         <form onSubmit={(event)=>{
             event.preventDefault();
-            console.log(nome);
+            console.log(nome, sobrenome);
         }}> 
             <TextField  
             value={nome}
             onChange={(event)=> {
-                setNome(event.target.value);
-                if(nome.length >= 3){
-                    setNome(nome.substring(0,3));
+                let tmpNome = event.target.value
+                if(tmpNome.length >= 3){
+                    tmpNome = tmpNome.substr(0,3);
                 }
+                setNome(tmpNome);
             }}
             id='nome' 
             label="Nome" 
@@ -24,9 +27,30 @@ function FormularioCadastro(){
             margin='normal' 
             fullWidth/> 
             
-            <TextField  id='sobrenome' label="Sobrenome" variant='outlined' margin='normal' fullWidth/>
+            <TextField  
+            value={sobrenome}
+            onChange={(event) => {
+                setSobrenome(event.target.value);
+            }}
+            id='sobrenome' 
+            label="Sobrenome" 
+            variant='outlined' 
+            margin='normal' 
+            fullWidth/>
 
-            <TextField  id='cpf' label="CPF" variant='outlined' margin='normal' fullWidth/>
+            <TextField 
+            value={cpf}
+            onChange={(event)=>{
+                setCpf(event.target.value);
+                if(cpf.length >= 11){
+                    setCpf(cpf.substring(0,12))
+                }
+            }}
+            id='cpf' 
+            label="CPF" 
+            variant='outlined' 
+            margin='normal' 
+            fullWidth/>
             
             <FormControlLabel label="Promoções"
                 control={
