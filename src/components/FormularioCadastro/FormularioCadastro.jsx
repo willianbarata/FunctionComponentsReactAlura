@@ -6,20 +6,18 @@ function FormularioCadastro(){
     const [nome, setNome] = useState("");
     const [sobrenome, setSobrenome] = useState("");
     const [cpf, setCpf] = useState("");
+    const [promocoes, setPromocoes] = useState(true);
+    const [novidades, setNovidades] = useState(true);
     
     return(
         <form onSubmit={(event)=>{
             event.preventDefault();
-            console.log(nome, sobrenome);
+            console.log({nome, sobrenome, cpf, promocoes, novidades});
         }}> 
             <TextField  
             value={nome}
             onChange={(event)=> {
-                let tmpNome = event.target.value
-                if(tmpNome.length >= 3){
-                    tmpNome = tmpNome.substr(0,3);
-                }
-                setNome(tmpNome);
+                setNome(event.target.value);
             }}
             id='nome' 
             label="Nome" 
@@ -42,9 +40,6 @@ function FormularioCadastro(){
             value={cpf}
             onChange={(event)=>{
                 setCpf(event.target.value);
-                if(cpf.length >= 11){
-                    setCpf(cpf.substring(0,12))
-                }
             }}
             id='cpf' 
             label="CPF" 
@@ -54,8 +49,12 @@ function FormularioCadastro(){
             
             <FormControlLabel label="Promoções"
                 control={
-                    <Switch name="promocoes"
-                    defaultChecked
+                    <Switch 
+                    checked={promocoes}
+                    onChange={(event) => {
+                        setPromocoes(event.target.checked)
+                    }}
+                    name="promocoes"
                     color="primary"/>
                 }
             
@@ -63,8 +62,12 @@ function FormularioCadastro(){
             
             <FormControlLabel label="Novidades"
                 control={
-                    <Switch name="novidades"
-                    defaultChecked
+                    <Switch 
+                    checked={novidades}
+                    onChange={(event) => {
+                        setNovidades(event.target.checked)
+                    }}
+                    name="novidades"
                     color="primary"/>
                 }
             />
